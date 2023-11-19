@@ -4,9 +4,9 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BillToPay } from 'src/app/interfaces/bill-to-pay';
-import { BillsToPayService } from 'src/app/services/bills-to-pay.service';
 import { map } from 'rxjs';
+import { Products } from 'src/app/interfaces/products';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     templateUrl: './product-management.component.html',
@@ -16,15 +16,15 @@ export class ProductManagementComponent implements OnInit {
     public cols: any[] = [];
     public rowsPerPageOptions = [5, 10, 20];
     public form!: FormGroup;
-    public items: BillToPay[] = [];
-    public item!: BillToPay;
+    public items: Products[] = [];
+    public item!: Products;
     public itemDialog: boolean = false;
     public deleteItemDialog: boolean = false;
 
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
-        private billsToPayService: BillsToPayService,
+        private productsService: ProductsService,
         private formBuilder: FormBuilder
     ) { }
 
@@ -37,10 +37,10 @@ export class ProductManagementComponent implements OnInit {
     onLoadCols() {
         this.cols = [
             { field: 'name', header: 'Nome' },
-            { field: 'documentDate', header: 'Data do Documento' },
-            { field: 'documentNumber', header: 'Numero do Documento' },
-            { field: 'supplierName', header: 'Fornecedor' },
-            { field: 'amount', header: 'Valor' }
+            { field: 'description', header: 'Descrição' },
+            { field: 'category', header: 'Categoria' },
+            { field: 'price', header: 'Preço' },
+            { field: 'quantity', header: 'Quantidade' }
         ];
     }
 
@@ -61,17 +61,15 @@ export class ProductManagementComponent implements OnInit {
     onCreateForm() {
        this.form = this.formBuilder.group({
           name: ['', Validators.required],
-          documentDate: ['', Validators.required],
-          documentNumber: ['', Validators.required],
-          supplierName: ['', Validators.required],
-          amount: ['', Validators.required],
-          installmentQuantity: ['', Validators.required],
-          dueDate: ['', Validators.required]
+          description: ['', Validators.required],
+          category: ['', Validators.required],
+          price: ['', Validators.required],
+          quantity: ['', Validators.required],
        });
     }
 
     onLoadItems() {
-        this.billsToPayService.getAll().snapshotChanges().pipe(
+        this.productsService.getAll().snapshotChanges().pipe(
             map(changes =>
                changes.map(c =>
                 ({ id: c.payload.doc.id, ...c.payload.doc.data()})
@@ -84,52 +82,52 @@ export class ProductManagementComponent implements OnInit {
 
     onSaveForm() {
         if (!this.item?.id) {
-            return this.createBillPay();
+            return this.createProduct();
         }
 
-        return this.updateBillPay(this.item.id);
+        return this.updateProduct(this.item.id);
     }
 
-    createBillPay() {
-        this.billsToPayService.create(this.form.value).then(() => {
+    createProduct() {
+        this.productsService.create(this.form.value).then(() => {
             this.itemDialog = false;
             this.form.reset();
 
             this.messageService.add({ severity: 'success',
-            summary: 'Sucesso', detail: 'Contas a pagar criada!', life: 3000});
+            summary: 'Sucesso', detail: 'Cadastro de produtos criado!', life: 3000});
 
         })
     }
 
-    updateBillPay(id: string) {
-        this.billsToPayService.update(id, this.form.value).then(res => {
+    updateProduct(id: string) {
+        this.productsService.update(id, this.form.value).then(res => {
             this.itemDialog = false;
 
             this.messageService.add({ severity: 'success',
-            summary: 'Sucesso', detail: 'Contas a pagar atualizada!', life: 3000});
+            summary: 'Sucesso', detail: 'Cadastro de produtos atualizado!', life: 3000});
 
             this.form.reset();
         })
     }
 
-    deleteBillPay(billPay: BillToPay) {
+    deleteProduct(products: Products) {
         this.deleteItemDialog = true;
-        this.item = billPay;
+        this.item = products;
     }
 
-    confirmDeleteBillPay() {
+    confirmDeleteProduct() {
         if (!this.item.id) {
             return;
         }
-        this.billsToPayService.delete(this.item.id).then(res => {
+        this.productsService.delete(this.item.id).then(res => {
             this.messageService.add({ severity: 'success',
-            summary: 'Sucesso', detail: 'Contas a pagar deletada!', life: 3000});
+            summary: 'Sucesso', detail: 'Cadastro de produtos deletado!', life: 3000});
 
             this.deleteItemDialog = false;
         });
     }
 
-    editBillPay(item: BillToPay) {
+    editProduct(item: Products) {
         const id = item.id;
         this.item = item;
         delete item.id;

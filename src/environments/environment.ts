@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyC9hxCXLfYq0aSvRT6zUR4HHd-DxW1GoS8",
-    authDomain: "paymentuniguairaca.firebaseapp.com",
-    projectId: "paymentuniguairaca",
-    storageBucket: "paymentuniguairaca.appspot.com",
-    messagingSenderId: "244832799814",
-    appId: "1:244832799814:web:cbcbfee9751b8d20724e47",
-    measurementId: "G-TH5EY18486"
+    apiKey: "AIzaSyBfQ5laIHeo8k1lLBY3Tf46v8vadfX6VHw",
+    authDomain: "paynmentjorge.firebaseapp.com",
+    projectId: "paynmentjorge",
+    storageBucket: "paynmentjorge.appspot.com",
+    messagingSenderId: "469380885271",
+    appId: "1:469380885271:web:a076786a65c1015ad92552"
   }
 };
 
