@@ -36,11 +36,10 @@ export class ProductManagementComponent implements OnInit {
 
     onLoadCols() {
         this.cols = [
-            { field: 'name', header: 'Nome' },
-            { field: 'description', header: 'Descrição' },
-            { field: 'category', header: 'Categoria' },
-            { field: 'price', header: 'Preço' },
-            { field: 'quantity', header: 'Quantidade' }
+            { field: 'pagamento', header: 'pagamento' },
+            { field: 'recebimento', header: 'recebimento' },
+            { field: 'fatura', header: 'fatura' },
+            { field: 'obs', header: 'obs' },
         ];
     }
 
@@ -60,11 +59,10 @@ export class ProductManagementComponent implements OnInit {
 
     onCreateForm() {
        this.form = this.formBuilder.group({
-          name: ['', Validators.required],
-          description: ['', Validators.required],
-          category: ['', Validators.required],
-          price: ['', Validators.required],
-          quantity: ['', Validators.required],
+            pagamento: ['', Validators.required],
+            recebimento: ['', Validators.required],
+            fatura: ['', Validators.required],
+            obs: ['', Validators.required]
        });
     }
 

@@ -30,7 +30,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Estoque',
                 items: [
-                    { label: 'Cadastro de Produtos', icon: 'pi pi-fw pi-id-card', routerLink: ['cadastro-de-produtos'] },
+                    { label: 'Contas a Receber', icon: 'pi pi-fw pi-id-card', routerLink: ['cadastro-de-produtos'] },
                 ]
             },
         ];

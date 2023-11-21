@@ -30,34 +30,29 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="description">Descrição<p-sortIcon field="description"></p-sortIcon></th>
-                        <th pSortableColumn="category">Categoria <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Preço <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Quantidade <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th pSortableColumn="name">Metodo de pagamento<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="price">Data Recebimento<p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="category">Tipo de fatura <p-sortIcon field="category"></p-sortIcon></th>
+                        <th pSortableColumn="rating">Obs <p-sortIcon field="rating"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
                     <tr>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Nome</span>
-                            {{item.name }}
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">pagamento</span>
+                            {{item.pagamento }}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Descrição</span>
-                            {{item.description}}
+                            <span class="p-column-title">data recebimento</span>
+                            {{item.recebimento | date : 'dd/MM/yyyy' }}
                         </td>
                         <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Categoria</span>
-                            {{item.category}}
+                            <span class="p-column-title">fatura</span>
+                            {{item.fatura}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Preço</span>
-                            {{item.price | currency:'BRL'}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Quantidade</span>
-                            {{item.quantity}}
+                            <span class="p-column-title">obs</span>
+                            {{item.obs}}
                         </td>
 
                         <td>
@@ -75,39 +70,32 @@
             <ng-template pTemplate="content">
                 <form [formGroup]="form" (ngSubmit)="onSaveForm()">
                 <div class="field">
-                    <label for="name">Nome</label>
-                    <input type="text" formControlName="name" placeholder="Digite o nome" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('name')?.valid && (this.form.get('name')?.dirty || this.form.get('name')?.touched)" class="ng-dirty ng-invalid">
-                        O campo nome é obrigatório.
+                    <label for="name">tipo de pagamento</label>
+                    <input type="text" formControlName="pagamento" placeholder="Digite tipo pagamento" pInputText id="name" required autofocus/>
+                    <small *ngIf="!this.form.get('pagamento')?.valid && (this.form.get('pagamento')?.dirty || this.form.get('pagamento')?.touched)" class="ng-dirty ng-invalid">
+                        O campo pagamento é obrigatório.
                     </small>
                 </div>
                 <div class="field">
-                    <label for="description">Descrição</label>
-                    <input type="text" formControlName="description" placeholder="Digite a descrição" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('description')?.valid && (this.form.get('description')?.dirty || this.form.get('description')?.touched)" class="ng-dirty ng-invalid">
-                        O campo descrição é obrigatório.
+                    <label for="description">Data de Recebimento</label>
+                    <input type="date" formControlName="recebimento" pInputText id="name" required autofocus/>
+                    <small *ngIf="!this.form.get('recebimento')?.valid && (this.form.get('recebimento')?.dirty || this.form.get('recebimento')?.touched)" class="ng-dirty ng-invalid">
+                        O campo Recebimento é obrigatório.
                     </small>
                 </div>
                 <div class="field">
-                    <label for="name">Categoria</label>
-                    <input type="text" formControlName="category" placeholder="Digite a categoria" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('category')?.valid && (this.form.get('category')?.dirty || this.form.get('category')?.touched)" class="ng-dirty ng-invalid">
-                        O categoria é obrigatório.
+                    <label for="name">tipo de fatura</label>
+                    <input type="text" formControlName="fatura" placeholder="Digite a fatura" pInputText id="name" required autofocus/>
+                    <small *ngIf="!this.form.get('fatura')?.valid && (this.form.get('fatura')?.dirty || this.form.get('fatura')?.touched)" class="ng-dirty ng-invalid">
+                        A fatura é obrigatoria.
                     </small>
                 </div>
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="price">Valor</label>
-                        <p-inputNumber id="price" formControlName="price" placeholder="Digite o preço" mode="currency" currency="BRL" locale="pt-BR"></p-inputNumber>
-                        <small *ngIf="!this.form.get('price')?.valid && (this.form.get('price')?.dirty || this.form.get('price')?.touched)" class="ng-dirty ng-invalid">
-                            O campo preço é obrigatório.
-                        </small>
-                    </div>
-                    <div class="field col">
-                        <label for="quantity">Quantidade de Parcela</label>
-                        <p-inputNumber id="quantity" formControlName="quantity" placeholder="Digite a quantidade"></p-inputNumber>
-                        <small *ngIf="!this.form.get('quantity')?.valid && (this.form.get('quantity')?.dirty || this.form.get('quantity')?.touched)" class="ng-dirty ng-invalid">
-                            O campo quantidade é obrigatório.
+                        <label for="quantity">Obs</label>
+                        <input type="text" formControlName="obs" placeholder="Digite a Observação" pInputText id="name" required autofocus/>
+                        <small *ngIf="!this.form.get('Obs')?.valid && (this.form.get('Obs')?.dirty || this.form.get('Obs')?.touched)" class="ng-dirty ng-invalid">
+                            O campo Obs é obrigatório.
                         </small>
                     </div>
                 </div>
@@ -123,7 +111,7 @@
         <p-dialog [(visible)]="deleteItemDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="item">Você realmente deseja deletar <b>{{item.name}}</b>?</span>
+                <span *ngIf="item">Você realmente deseja deletar?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Não" (click)="deleteItemDialog = false"></button>
